@@ -23,7 +23,7 @@ def drawLines(img,img_edges):
 	##Continuar algoritmo
 	deleted = []
 	for key,value in columnas.items():
-		if((value[1]-value[0])>5 or (value[3]-value[2])>4 or (value[4]-value[0])>115):
+		if((value[1]-value[0])>5 or (value[3]-value[2])>4 or (value[4]-value[0])>135):
 			deleted.append(key)
 	for e in deleted:
 		del columnas[e]
@@ -86,14 +86,7 @@ def drawLines(img,img_edges):
 	LC = np.mean([(value_4[i]-va[i]) for i in range(len(value_4))])
 	LP = np.mean([(vc[i]-va[i]) for i in range(len(va))])
 
-	#print("POR PROMEDIO: ")
-	print("Lente-cornea: ")
-	print(LC)
-	print("Lente: ")
-	print(LP)
-	print("Ratio: ")
-	ratio = LP/LC
-	print(ratio)
+	#Obtner por promedio#
 
 	i = 0
 	max_ = 0
@@ -112,13 +105,33 @@ def drawLines(img,img_edges):
 	final_img[:,:,0] = img
 	final_img[:,:,1] = img
 	final_img[:,:,2] = img
+	print("MAYOR DIFERENCIA: (Azul)")
+	lc = (columnas[key_][4] - columnas[key_][0])
+	print("Lente Cornea: ")
+	print(lc)
+	print("Lente")
+	lp = (columnas[key_][2] - columnas[key_][0])
+	print(lp)
+	print("Ratio: ")
+	radio = lp/lc
+	print(radio)
 	cv2.line(final_img,(key_,columnas[key_][0]),(key_,columnas[key_][4]),(255,0,0),2)
-	#print("POR MAYOR DIFERENCIA")
+
+	print("----------------------------------")
+	print("PROMEDIO: ")
+	print("Lente-cornea:")
+	print(LC)
+	print("Lente: ")
+	print(LP)
+	print("Ratio: ")
+	ratio = LP/LC
+	print(ratio)
+
 	return final_img
 
 
 
-original_img = cv2.imread('6. AS-OCT/im1.jpeg',0)
+original_img = cv2.imread('6. AS-OCT/im12.jpeg',0)
 #reducir su tamaño por la mitad.
 img = cv2.resize(original_img, (0,0), fx=0.5, fy=0.5) 
 
